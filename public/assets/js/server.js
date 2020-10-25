@@ -5,10 +5,10 @@ var express = require("express");
 var fs = require("fs");
 const { reset } = require("nodemon");
 var path = require("path")
+var notesList = require("../../../db/db.json")
 
 var app = express();
-var PORT =  3001;
-// process.env.PORT ||
+var PORT = process.env.PORT ||  3001;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -32,14 +32,31 @@ app.get("/api/notes", function(req, res){ //reads db.json and sends to ajax call
   })
 })
 app.post("/api/notes", function(req, res){
-  const note = req.body
-  var notesList = require("../../../db/db.json")
+  const note = {
+    title: req.body.title,
+    text: req.body.text,
+    id: notesList.length + 1
+  }
   notesList.push(note)
   console.log(notesList)
   const listString = JSON.stringify(notesList)
   console.log(listString)
   fs.writeFile("../NoteTaker/db/db.json", listString, function(){
     console.log("Note Saved!")
+  })
+})
+app.delete("/api/notes/:id", function(req, res){
+  var id = req.params.id
+  const notesNotEdit = notesList.filter(noteObj => {
+    noteObj.id !== id
+  })
+  fs.writeFile("../NoteTaker/db/db.json", JSON.stringify(notesNotEdit), function(error){
+    if(error){
+      console.log(error)
+    }else{
+      console.log("success!")
+      return notesList
+    }
   })
 })
 // Listener
