@@ -16,7 +16,7 @@ app.use(express.static(`public`))
 // Routes
 // ===========================================================
 app.get("/", function(req, res){      //dispalys home page
-  res.sendFile(path.join(__dirname, "index.html"))
+  res.sendFile(path.join(__dirname, "/index.html"))
 })
 app.get("/notes", function(req, res){ //displays note page
   res.sendFile(path.join(__dirname, "../../notes.html"))
