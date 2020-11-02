@@ -8,7 +8,7 @@ var path = require("path")
 var notesList = require("../../../db/db.json")
 
 var app = express();
-var PORT = process.env.PORT ||  3001;
+var PORT = process.env.PORT ;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
