@@ -5,10 +5,10 @@ var express = require("express");
 var fs = require("fs");
 const { reset } = require("nodemon");
 var path = require("path")
-var notesList = require("../../../db/db.json")
+var notesList = require("../NoteTaker/db/db.json")
 
 var app = express();
-var PORT = process.env.PORT ;
+var PORT = process.env.PORT || 8080 ;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -19,7 +19,7 @@ app.get("/", function(req, res){      //dispalys home page
   res.sendFile(path.join(__dirname, "../index.html"))
 })
 app.get("/notes", function(req, res){ //displays note page
-  res.sendFile(path.join(__dirname, "../../notes.html"))
+  res.sendFile(path.join(__dirname, "..//NoteTaker/public/notes.html"))
 })
 app.get("/api/notes", function(req, res){ //reads db.json and sends to ajax call
   fs.readFile("../NoteTaker/db/db.json", "utf8", function(error, data){
