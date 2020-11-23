@@ -5,7 +5,7 @@ var express = require("express");
 var fs = require("fs");
 const { reset } = require("nodemon");
 var path = require("path")
-var notesList = require("../NoteTaker/db/db.json")
+var notesList = require("./db/db.json")
 
 var app = express();
 var PORT = process.env.PORT || 8080 ;
