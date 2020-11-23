@@ -19,10 +19,10 @@ app.get("/", function(req, res){      //dispalys home page
   res.sendFile(path.join(__dirname, "./public/index.html"))
 })
 app.get("/notes", function(req, res){ //displays note page
-  res.sendFile(path.join(__dirname, "..//NoteTaker/public/notes.html"))
+  res.sendFile(path.join(__dirname, "./public/notes.html"))
 })
 app.get("/api/notes", function(req, res){ //reads db.json and sends to ajax call
-  fs.readFile("../NoteTaker/db/db.json", "utf8", function(error, data){
+  fs.readFile("./db/db.json", "utf8", function(error, data){
     if(error){
       console.log(error)
     }else{
@@ -41,7 +41,7 @@ app.post("/api/notes", function(req, res){
   console.log(notesList)
   const listString = JSON.stringify(notesList)
   console.log(listString)
-  fs.writeFile("../NoteTaker/db/db.json", listString, function(){
+  fs.writeFile(".db/db.json", listString, function(){
     console.log("Note Saved!")
   })
 })
@@ -50,7 +50,7 @@ app.delete("/api/notes/:id", function(req, res){
   const notesNotEdit = notesList.filter(noteObj => {
     noteObj.id !== id
   })
-  fs.writeFile("../NoteTaker/db/db.json", JSON.stringify(notesNotEdit), function(error){
+  fs.writeFile(".db/db.json", JSON.stringify(notesNotEdit), function(error){
     if(error){
       console.log(error)
     }else{
